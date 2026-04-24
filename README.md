@@ -19,6 +19,12 @@ index = binary_search(arr, val)
 
 ## Installation
 
+Remove the `dist` if already exists
+
+``` bash
+rm -r dist
+```
+
 Create a virtual environment
 
 ``` bash
