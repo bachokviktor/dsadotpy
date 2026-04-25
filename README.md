@@ -17,6 +17,16 @@ val = 3
 index = binary_search(arr, val)
 ```
 
+## What Is Implemented
+
+**Searching Algorithms:**
+
+- Binary Search: O(log n)
+
+**Data Structures:**
+
+- Linked Lists
+
 ## Installation
 
 Remove the `dist` if already exists
