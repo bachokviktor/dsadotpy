@@ -19,6 +19,10 @@ index = binary_search(arr, val)
 
 ## What Is Implemented
 
+**Sorting Algorithms:**
+
+- Selection Sort: O(n^2)
+
 **Searching Algorithms:**
 
 - Binary Search: O(log n)
