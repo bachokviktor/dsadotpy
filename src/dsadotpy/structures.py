@@ -1,3 +1,6 @@
+from typing import Any, Self
+
+
 class ListNode:
     """
     This class represents a linked list node.
@@ -10,9 +13,9 @@ class ListNode:
         next: Link to the next node.
     """
 
-    def __init__(self, value):
+    def __init__(self, value: Any) -> None:
         self.value = value
-        self.next = None
+        self.next: Self | None = None
 
 
 class LinkedList:
@@ -28,7 +31,10 @@ class LinkedList:
         tail: The last node in the list.
     """
 
-    def __init__(self, *args):
+    def __init__(self, *args: Any) -> None:
+        self.head: ListNode | None = None
+        self.tail: ListNode | None = None
+
         if args:
             self.head = ListNode(args[0])
 
@@ -39,11 +45,8 @@ class LinkedList:
                 prev = node
 
             self.tail = prev
-        else:
-            self.head = None
-            self.tail = None
 
-    def append(self, value):
+    def append(self, value: Any) -> None:
         """
         Appends an item to the end of the list.
 
@@ -59,7 +62,7 @@ class LinkedList:
             self.tail = node
             self.head = node
 
-    def prepend(self, value):
+    def prepend(self, value: Any) -> None:
         """
         Prepends an item to the start of the list.
 
@@ -75,7 +78,7 @@ class LinkedList:
             self.head = node
             self.tail = node
 
-    def insert(self, after, value):
+    def insert(self, after: ListNode, value: Any) -> None:
         """
         Inserts an item after the specified node.
 
@@ -91,7 +94,7 @@ class LinkedList:
         if after == self.tail:
             self.tail = node
 
-    def remove(self, node):
+    def remove(self, node: ListNode) -> None:
         """
         Removes a node from the list.
 
@@ -100,20 +103,21 @@ class LinkedList:
         """
         if node == self.head:
             self.head = self.head.next
-        else:
-            current = self.head
-            while current.next:
-                if current.next == node:
-                    current.next = node.next
+            return
 
-                    if node == self.tail:
-                        self.tail = current
+        current = self.head
+        while current and current.next:
+            if current.next == node:
+                current.next = node.next
 
-                    break
+                if node == self.tail:
+                    self.tail = current
 
-                current = current.next
+                break
 
-    def __len__(self):
+            current = current.next
+
+    def __len__(self) -> int:
         count = 0
 
         current = self.head
@@ -123,7 +127,7 @@ class LinkedList:
 
         return count
 
-    def __str__(self):
+    def __str__(self) -> str:
         representation = "{"
 
         current = self.head
