@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, Protocol
+from typing import Any, Protocol
 
 
 class Comparable(Protocol):
@@ -6,10 +6,7 @@ class Comparable(Protocol):
     def __eq__(self, other: Any) -> bool: ...
 
 
-T = TypeVar("T", bound=Comparable)
-
-
-def selection_sort(array: list[T]) -> list[T]:
+def selection_sort[T: Comparable](array: list[T]) -> list[T]:
     """
     Sorts an array using selection sort.
 

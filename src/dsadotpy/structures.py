@@ -1,7 +1,7 @@
 from typing import Any, Self
 
 
-class ListNode:
+class ListNode[T]:
     """
     This class represents a linked list node.
 
@@ -13,12 +13,12 @@ class ListNode:
         next: Link to the next node.
     """
 
-    def __init__(self, value: Any) -> None:
+    def __init__(self, value: T) -> None:
         self.value = value
-        self.next: Self | None = None
+        self.next: ListNode[T] | None = None
 
 
-class LinkedList:
+class LinkedList[T]:
     """
     This class represents a linked list.
 
@@ -31,9 +31,9 @@ class LinkedList:
         tail: The last node in the list.
     """
 
-    def __init__(self, *args: Any) -> None:
-        self.head: ListNode | None = None
-        self.tail: ListNode | None = None
+    def __init__(self, *args: T) -> None:
+        self.head: ListNode[T] | None = None
+        self.tail: ListNode[T] | None = None
 
         if args:
             self.head = ListNode(args[0])
@@ -46,7 +46,7 @@ class LinkedList:
 
             self.tail = prev
 
-    def append(self, value: Any) -> None:
+    def append(self, value: T) -> None:
         """
         Appends an item to the end of the list.
 
@@ -62,7 +62,7 @@ class LinkedList:
             self.tail = node
             self.head = node
 
-    def prepend(self, value: Any) -> None:
+    def prepend(self, value: T) -> None:
         """
         Prepends an item to the start of the list.
 
@@ -78,7 +78,7 @@ class LinkedList:
             self.head = node
             self.tail = node
 
-    def insert(self, after: ListNode, value: Any) -> None:
+    def insert(self, after: ListNode[T], value: T) -> None:
         """
         Inserts an item after the specified node.
 
@@ -94,7 +94,7 @@ class LinkedList:
         if after == self.tail:
             self.tail = node
 
-    def remove(self, node: ListNode) -> None:
+    def remove(self, node: ListNode[T]) -> None:
         """
         Removes a node from the list.
 
@@ -146,6 +146,9 @@ class LinkedList:
 
 if __name__ == "__main__":
     lst = LinkedList(1, 4, 6, 7)
+
+    assert lst.head
+    assert lst.tail
     print("First:", lst.head.value)
     print("Last:", lst.tail.value)
 
@@ -160,7 +163,8 @@ if __name__ == "__main__":
     lst.prepend(66)
     print(lst)
 
-    el = lst.head.next.next
+    assert lst.head.next
+    el = lst.head.next
     print("Insert 99 after", el.value)
     lst.insert(el, 99)
     print(lst)
@@ -179,7 +183,7 @@ if __name__ == "__main__":
     lst.remove(lst.tail)
     print(lst)
 
-    el = lst.head.next.next
+    el = lst.head.next
     print("Remove", el.value)
     lst.remove(el)
     print(lst)
@@ -187,7 +191,7 @@ if __name__ == "__main__":
     print("First:", lst.head.value)
     print("Last:", lst.tail.value)
 
-    l_empty = LinkedList()
+    l_empty: LinkedList[int] = LinkedList()
     print(l_empty)
     print(len(l_empty))
 
@@ -199,24 +203,7 @@ if __name__ == "__main__":
     l_empty.prepend(66)
     print(l_empty)
 
-    el = l_empty.head.next
-    print("Insert 99 after", el.value)
-    l_empty.insert(el, 99)
-    print(l_empty)
-
-    el = l_empty.tail
-    print("Insert 67 after", el.value)
-    l_empty.insert(el, 67)
-    print("Tail:", l_empty.tail.value)
-    print(l_empty)
-
-    print("Remove head")
-    l_empty.remove(l_empty.head)
-    print(l_empty)
-
-    print("Remove tail")
-    l_empty.remove(l_empty.tail)
-    print(l_empty)
-
+    assert l_empty.head
+    assert l_empty.tail
     print("First:", l_empty.head.value)
     print("Last:", l_empty.tail.value)
