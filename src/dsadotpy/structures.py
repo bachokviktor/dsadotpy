@@ -1,6 +1,3 @@
-from typing import Any, Self
-
-
 class ListNode[T]:
     """
     This class represents a linked list node.

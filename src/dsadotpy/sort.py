@@ -1,9 +1,4 @@
-from typing import Any, Protocol
-
-
-class Comparable(Protocol):
-    def __lt__(self, other: Any) -> bool: ...
-    def __eq__(self, other: Any) -> bool: ...
+from dsadotpy.protocols import Comparable
 
 
 def selection_sort[T: Comparable](array: list[T]) -> list[T]:
@@ -27,7 +22,48 @@ def selection_sort[T: Comparable](array: list[T]) -> list[T]:
     return array
 
 
+def quicksort[T: Comparable](array: list[T]) -> list[T]:
+    """
+    Sorts an array using the quicksort algorithm.
+
+    Args:
+        array: The initial array.
+
+    Returns:
+        The new sorted array.
+    """
+    if len(array) < 2:
+        return array
+    else:
+        pivot = array[0]
+
+        less = [i for i in array[1:] if i <= pivot]
+        greater = [i for i in array[1:] if i > pivot]
+
+        return quicksort(less) + [pivot] + quicksort(greater)
+
+
 if __name__ == "__main__":
+    print("Selection Sort")
+
+    arr = [1, 6, 2, 9, 44, 11]
+
+    print(arr)
+
+    new_arr = selection_sort(arr)
+
+    print(new_arr)
+
+    arr_str = ["n", "d", "z", "a", "w", "t"]
+
+    print(arr_str)
+
+    new_arr_str = selection_sort(arr_str)
+
+    print(new_arr_str)
+
+    print("\nQuicksort")
+
     arr = [1, 6, 2, 9, 44, 11]
 
     print(arr)

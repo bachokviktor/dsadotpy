@@ -1,7 +1,9 @@
 from collections.abc import Sequence
 
+from dsadotpy.protocols import Comparable
 
-def binary_search(array: Sequence[int], value: int) -> int:
+
+def binary_search[T: Comparable](array: Sequence[T], value: T) -> int:
     """
     Searches for a value in a sorted array using binary search.
 
@@ -33,3 +35,7 @@ if __name__ == "__main__":
     some_val = 24
 
     print("The index of", some_val, "is", binary_search(some_arr, some_val))
+
+    str_arr = ["a", "d", "n", "t", "w", "z"]
+    str_val = "d"
+    print("The index of", str_val, "is", binary_search(str_arr, str_val))

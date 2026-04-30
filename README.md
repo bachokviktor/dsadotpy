@@ -21,13 +21,20 @@ index = binary_search(arr, val)
 
 **Sorting Algorithms:**
 
+Module: `dsadotpy.sort`
+
 - Selection Sort: O(n^2)
+- Quicksort: O(n log n)
 
 **Searching Algorithms:**
+
+Module: `dsadotpy.search`
 
 - Binary Search: O(log n)
 
 **Data Structures:**
+
+Module: `dsadotpy.structures`
 
 - Linked Lists
 
@@ -63,7 +70,7 @@ Build the module
 python3 -m build
 ```
 
-Install the `.wheel` file
+Install the `wheel` file
 
 ``` bash
 pip install dist/dsadotpy*.whl
