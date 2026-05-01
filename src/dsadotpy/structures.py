@@ -141,7 +141,192 @@ class LinkedList[T]:
         return representation
 
 
+class HashNode[K, V]:
+    """
+    This class represents a key-value pair inside a hash table.
+
+    This construction helps to solve collisions using chaining by
+    making each bucket a linked list.
+
+    Args:
+        key: A hast table key.
+        value: Value associated with this key.
+
+    Attributes:
+        key: A hast table key.
+        value: Value associated with this key.
+        next: The next key-value pair in this bucket.
+    """
+
+    def __init__(self, key: K, value: V):
+        self.key = key
+        self.value = value
+        self.next: HashNode[K, V] | None = None
+
+
+class HashTable[K, V]:
+    """
+    This class represents a hash table.
+
+    Internally, its values are stored as an array of linked lists.
+    """
+
+    def __init__(self) -> None:
+        self.__state: list[None | HashNode[K, V]] = [None for _ in range(5)]
+        self.__total: int = 0
+
+    def __resize(self) -> None:
+        old = self.__state.copy()
+        self.__state = [None for _ in range(len(self.__state) * 2)]
+        self.__total = 0
+
+        for bucket in old:
+            if bucket:
+                current: HashNode[K, V] | None = bucket
+                while current:
+                    self.set(current.key, current.value)
+
+                    current = current.next
+
+    def __load_factor(self) -> float:
+        return self.__total / len(self.__state)
+
+    def __index(self, key: K) -> int:
+        return hash(key) % len(self.__state)
+
+    def get(self, key: K) -> V | None:
+        """
+        Retrieve a value associated with a given key.
+
+        Args:
+            key: A hash table key.
+
+        Returns:
+            Value associated with this key, or None if not exists.
+        """
+        index = self.__index(key)
+
+        current = self.__state[index]
+        while current:
+            if current.key == key:
+                return current.value
+
+            current = current.next
+
+        return None
+
+    def set(self, key: K, value: V) -> None:
+        """
+        Inserts a key-value pair into the hash table, or
+        updates the value if the key already exists.
+
+        Args:
+            key: A hast table key.
+            value: Value associated with this key.
+        """
+        index = self.__index(key)
+
+        if not self.__state[index]:
+            self.__state[index] = HashNode(key, value)
+            self.__total += 1
+
+            if self.__load_factor() >= 0.7:
+                self.__resize()
+
+            return
+
+        current = self.__state[index]
+
+        while current and current.next:
+            if current.key == key:
+                current.value = value
+                return
+
+            current = current.next
+
+        if current:
+            if current.key == key:
+                current.value = value
+            else:
+                current.next = HashNode(key, value)
+                self.__total += 1
+
+                if self.__load_factor() >= 0.7:
+                    self.__resize()
+
+    def delete(self, key: K) -> None:
+        """
+        Deletes a key-value pair from the hast table.
+
+        Args:
+            key: A hash table key.
+        """
+        index = self.__index(key)
+
+        current = self.__state[index]
+        if current:
+            if current.key == key:
+                self.__state[index] = current.next
+                self.__total -= 1
+                return
+
+            while current.next:
+                if current.next.key == key:
+                    current.next = current.next.next
+                    self.__total -= 1
+                    return
+
+                current = current.next
+
+    def __len__(self) -> int:
+        return self.__total
+
+    def __str__(self) -> str:
+        buckets: list[str] = []
+
+        for bucket in self.__state:
+            if bucket:
+                current: HashNode[K, V] | None = bucket
+                while current:
+                    buckets.append(f"{current.key}: {current.value}")
+
+                    current = current.next
+
+        return "{" + ", ".join(buckets) + "}"
+
+
 if __name__ == "__main__":
+    htable: HashTable[str, str] = HashTable()
+    print(htable)
+
+    htable.set("name", "Some User")
+    htable.set("age", "20")
+    print(htable)
+    print("Length:", len(htable))
+
+    age = htable.get("age")
+    print(age)
+
+    nonexistent = htable.get("nonexistent")
+    print(nonexistent)
+
+    htable.delete("name")
+    print(htable)
+    print("Length:", len(htable))
+
+    htable.set("k1", "val1")
+    print(htable)
+    htable.set("k2", "val2")
+    print(htable)
+    htable.set("k3", "val3")
+    print(htable)
+    htable.set("k4", "val4")
+    print(htable)
+    htable.set("k5", "val5")
+    print(htable)
+    htable.set("k6", "val6")
+    print(htable)
+
     lst = LinkedList(1, 4, 6, 7)
 
     assert lst.head

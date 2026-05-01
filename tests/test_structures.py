@@ -78,3 +78,46 @@ class TestLinkedList:
 
         assert len(test_list) == 4
         assert test_list.head.next != node
+
+
+class TestHashTable:
+    def test_empty_hash_table(self):
+        htable = structures.HashTable()
+
+        assert len(htable) == 0
+
+    def test_hash_table_crud(self):
+        htable = structures.HashTable()
+
+        htable.set("k1", "val1")
+        htable.set("k2", "val2")
+        htable.set("k3", "val3")
+
+        assert len(htable) == 3
+
+        value = htable.get("k2")
+
+        assert value == "val2"
+
+        nonexistent = htable.get("nonexistent")
+
+        assert nonexistent is None
+
+        htable.delete("k2")
+
+        assert len(htable) == 2
+
+    def test_hash_table_resize(self):
+        htable = structures.HashTable()
+
+        htable.set("k1", "val1")
+        htable.set("k2", "val2")
+        htable.set("k3", "val3")
+
+        assert len(htable) == 3
+        assert len(htable._HashTable__state) == 5
+
+        htable.set("k4", "val4")
+
+        assert len(htable) == 4
+        assert len(htable._HashTable__state) == 10

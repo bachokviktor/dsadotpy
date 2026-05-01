@@ -37,6 +37,7 @@ Module: `dsadotpy.search`
 Module: `dsadotpy.structures`
 
 - Linked Lists
+- Hash Tables
 
 ## Installation
 
