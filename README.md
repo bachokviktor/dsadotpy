@@ -31,6 +31,7 @@ Module: `dsadotpy.sort`
 Module: `dsadotpy.search`
 
 - Binary Search: O(log n)
+- Breadth-First Search: O(V + E)
 
 **Data Structures:**
 

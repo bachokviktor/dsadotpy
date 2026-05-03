@@ -1,3 +1,5 @@
+import pytest
+
 from dsadotpy import search
 
 
@@ -25,3 +27,64 @@ class TestBinarySearch:
         result = search.binary_search(array, value)
 
         assert result == -1
+
+
+class TestBreadthFirstSearch:
+    def test_shortest_route(self):
+        graph = {
+            "London": ["Oxford", "Luton", "Cambridge", "Postmouth"],
+            "Oxford": ["Cheltenham", "Northampton"],
+            "Luton": ["Northampton"],
+            "Cambridge": ["Northampton", "Peterborough"],
+            "Postmouth": [],
+            "Cheltenham": ["Birmingham"],
+            "Northampton": ["Birmingham", "Leicester"],
+            "Peterborough": ["Leicester"],
+            "Leicester": ["Birmingham"],
+            "Birmingham": [],
+        }
+
+        start = "London"
+
+        shortest = ["London", "Oxford", "Cheltenham", "Birmingham"]
+
+        route = search.bfs(
+            graph, start, condition=lambda vert: vert == "Birmingham"
+        )
+
+        assert route == shortest
+
+    def test_invalid_start(self):
+        graph = {
+            "London": ["Oxford", "Luton", "Cambridge"],
+            "Oxford": ["Cheltenham", "Northampton"],
+            "Luton": ["Northampton"],
+            "Cambridge": ["Northampton"],
+            "Cheltenham": [],
+            "Northampton": [],
+        }
+
+        start = "Nonexistent"
+
+        with pytest.raises(ValueError):
+            search.bfs(
+                graph, start, condition=lambda vert: vert == "Birmingham"
+            )
+
+    def test_not_found(self):
+        graph = {
+            "London": ["Oxford", "Luton", "Cambridge"],
+            "Oxford": ["Cheltenham", "Northampton"],
+            "Luton": ["Northampton"],
+            "Cambridge": ["Northampton"],
+            "Cheltenham": [],
+            "Northampton": [],
+        }
+
+        start = "London"
+
+        route = search.bfs(
+            graph, start, condition=lambda vert: vert == "Birmingham"
+        )
+
+        assert route is None
