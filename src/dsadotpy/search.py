@@ -46,7 +46,7 @@ def bfs[T](
         graph: dict[T, list[T]], start: T, condition: Callable[[T], bool]
 ) -> list[T] | None:
     """
-    Searches the closest vertex inside a graph for
+    Searches for the closest vertex inside a graph for
     which the condition is true using the breadth-first search.
 
     Using a condition insted of a name of the searched vertex allows
