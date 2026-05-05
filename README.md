@@ -32,6 +32,7 @@ Module: `dsadotpy.search`
 
 - Binary Search: O(log n)
 - Breadth-First Search: O(V + E)
+- Dijkstra's Algorithm: O(V^2)
 
 **Data Structures:**
 

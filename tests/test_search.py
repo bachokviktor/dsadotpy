@@ -88,3 +88,35 @@ class TestBreadthFirstSearch:
         )
 
         assert route is None
+
+
+class TestDijkstra:
+    def test_shortest_route(self, weighted_graph):
+        start = "London"
+
+        shortest = ["London", "Luton", "Northampton", "Birmingham"]
+
+        route = search.dijkstra(
+            weighted_graph, start, condition=lambda vert: vert == "Birmingham"
+        )
+
+        assert route == shortest
+
+    def test_invalid_start(self, weighted_graph):
+        start = "Nonexistent"
+
+        with pytest.raises(ValueError):
+            search.dijkstra(
+                weighted_graph,
+                start,
+                condition=lambda vert: vert == "Birmingham"
+            )
+
+    def test_not_found(self, weighted_graph):
+        start = "London"
+
+        route = search.dijkstra(
+            weighted_graph, start, condition=lambda vert: vert == "Glasgow"
+        )
+
+        assert route is None
