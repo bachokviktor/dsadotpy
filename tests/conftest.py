@@ -37,3 +37,19 @@ def weighted_graph():
         },
         "Birmingham": {},
     }
+
+
+@pytest.fixture
+def dependency_graph():
+    return {
+        "emacs": ["gcc", "libx11", "libtree-sitter"],
+        "gcc": ["GMP", "MPC", "MPFR"],
+        "libx11": ["glibc", "libxcb", "xorgproto"],
+        "libtree-sitter": ["glibc"],
+        "GMP": [],
+        "MPC": [],
+        "MPFR": [],
+        "libxcb": [],
+        "xorgproto": [],
+        "glibc": [],
+    }

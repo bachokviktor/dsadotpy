@@ -111,6 +111,40 @@ def dijkstra[T](
     return None
 
 
+def _dfs_recursion[T](
+        graph: dict[T, list[T]], node: T, visited: list[T]
+) -> None:
+    for dependency in graph[node]:
+        if dependency not in visited:
+            _dfs_recursion(graph, dependency, visited)
+
+    visited.append(node)
+
+
+def dfs[T](graph: dict[T, list[T]], start: T) -> list[T]:
+    """
+    Topologically sorts a directed acyclic dependency graph
+    using the Depth-First Search algorithm.
+
+    Args:
+        graph: Graph represented as an adjacency list.
+        start: The starting vertex. It has to be in-degree zero (with
+            no incoming edges).
+
+    Returns:
+        Topologically sorted list of nodes.
+    """
+    node = graph.get(start)
+    if node is None:
+        raise ValueError(f"{start} is not in the graph.")
+
+    visited: list[T] = []
+
+    _dfs_recursion(graph, start, visited)
+
+    return visited
+
+
 if __name__ == "__main__":
     graph = {
         "London": ["Oxford", "Luton", "Cambridge", "Postmouth"],
@@ -173,3 +207,22 @@ if __name__ == "__main__":
     )
 
     print(route)
+
+    dgraph = {
+        "emacs": ["gcc", "libx11", "libtree-sitter"],
+        "gcc": ["GMP", "MPC", "MPFR"],
+        "libx11": ["glibc", "libxcb", "xorgproto"],
+        "libtree-sitter": ["glibc"],
+        "GMP": [],
+        "MPC": [],
+        "MPFR": [],
+        "libxcb": [],
+        "xorgproto": [],
+        "glibc": [],
+    }
+
+    start = "emacs"
+
+    dsorted = dfs(dgraph, start)
+
+    print(dsorted)

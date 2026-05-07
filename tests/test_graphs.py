@@ -94,3 +94,25 @@ class TestDijkstra:
         )
 
         assert route is None
+
+
+class TestDepthFirstSearch:
+    def test_topological_sort(self, dependency_graph):
+        start = "emacs"
+
+        sorted_graph = [
+            "GMP", "MPC", "MPFR",
+            "gcc", "glibc", "libxcb",
+            "xorgproto", "libx11",
+            "libtree-sitter", "emacs"
+        ]
+
+        result = graphs.dfs(dependency_graph, start)
+
+        assert result == sorted_graph
+
+    def test_invalid_start(self, dependency_graph):
+        start = "vim"
+
+        with pytest.raises(ValueError):
+            graphs.dfs(dependency_graph, start)

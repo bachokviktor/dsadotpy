@@ -37,6 +37,7 @@ Module: `dsadotpy.search`
 Module: `dsadotpy.graphs`
 
 - Breadth-First Search: O(V + E)
+- Depth-First Search: O(V + E)
 - Dijkstra's Algorithm: O(V^2)
 
 **Data Structures:**
