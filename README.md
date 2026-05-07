@@ -31,6 +31,11 @@ Module: `dsadotpy.sort`
 Module: `dsadotpy.search`
 
 - Binary Search: O(log n)
+
+**Graph Algorithms:**
+
+Module: `dsadotpy.graphs`
+
 - Breadth-First Search: O(V + E)
 - Dijkstra's Algorithm: O(V^2)
 
