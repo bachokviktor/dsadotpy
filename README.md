@@ -19,20 +19,20 @@ index = binary_search(arr, val)
 
 ## What Is Implemented
 
-**Sorting Algorithms:**
+### Sorting Algorithms
 
 Module: `dsadotpy.sort`
 
 - Selection Sort: O(n^2)
 - Quicksort: O(n log n)
 
-**Searching Algorithms:**
+### Searching Algorithms
 
 Module: `dsadotpy.search`
 
 - Binary Search: O(log n)
 
-**Graph Algorithms:**
+### Graph Algorithms
 
 Module: `dsadotpy.graphs`
 
@@ -41,7 +41,7 @@ Module: `dsadotpy.graphs`
 - Dijkstra's Algorithm: O(V^2)
 - Bellman-Ford Algorithm: O(V * E)
 
-**Data Structures:**
+### Data Structures
 
 Module: `dsadotpy.structures`
 
