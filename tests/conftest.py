@@ -40,6 +40,20 @@ def weighted_graph():
 
 
 @pytest.fixture
+def negative_weight_graph():
+    return {
+        "A": {"B": 1},
+        "B": {"C": 2, "E": -3},
+        "C": {"D": 3, "H": -5},
+        "D": {"A": 2, "G": 2},
+        "E": {"F": 2},
+        "F": {"G": 3},
+        "G": {"E": 1, "H": 2},
+        "H": {"E": 1},
+    }
+
+
+@pytest.fixture
 def dependency_graph():
     return {
         "emacs": ["gcc", "libx11", "libtree-sitter"],

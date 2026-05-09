@@ -39,6 +39,7 @@ Module: `dsadotpy.graphs`
 - Breadth-First Search: O(V + E)
 - Depth-First Search: O(V + E)
 - Dijkstra's Algorithm: O(V^2)
+- Bellman-Ford Algorithm: O(V * E)
 
 **Data Structures:**
 

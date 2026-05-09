@@ -111,6 +111,61 @@ def dijkstra[T](
     return None
 
 
+def bellman_ford[T](
+        graph: dict[T, dict[T, float]],
+        start: T,
+        condition: Callable[[T], bool]
+) -> list[T] | None:
+    """
+    Searches for the closest vertex inside a weighted graph for
+    which the condition is true using the Bellman-Ford algorithm.
+
+    Using a condition insted of a name of the searched vertex allows
+    to use this function for a wider range of problems.
+
+    This algorithm can handle graphs, that contain negative-weight edges
+    and negative-weight cycles, although in all other cases the Dijkstra's
+    algorithm would be a better option.
+
+    Args:
+        graph: Graph represented as an adjacency list.
+        start: The starting vertex.
+        condition: Function that will accept one argument (vertex) and
+            return True or False depending on some condition.
+
+    Returns:
+        Shortest path represented as a sequence
+        of vertices, or None if not found.
+    """
+    start_node = graph.get(start)
+    if start_node is None:
+        raise ValueError(f"{start} is not in the graph.")
+
+    parents: dict[T, T | None] = {start: None}
+    costs = {v: float("inf") for v in graph}
+    costs[start] = 0
+
+    for _ in range(len(graph) - 1):
+        for vertex in graph:
+            for v, w in graph[vertex].items():
+                if costs[vertex] + w < costs[v]:
+                    costs[v] = costs[vertex] + w
+                    parents[v] = vertex
+
+    for vertex in graph:
+        for v, w in graph[vertex].items():
+            if costs[vertex] + w < costs[v]:
+                raise ValueError(
+                    "This graph contains a negative weight cycle."
+                )
+
+    for vertex in costs:
+        if condition(vertex):
+            return _reconstruct_path(parents, vertex)
+
+    return None
+
+
 def _dfs_recursion[T](
         graph: dict[T, list[T]], node: T, visited: list[T]
 ) -> None:
@@ -205,6 +260,23 @@ if __name__ == "__main__":
     route = dijkstra(
         wgraph, start, condition=lambda vert: vert == "Birmingham"
     )
+
+    print(route)
+
+    nwgraph: dict[str, dict[str, float]] = {
+        "A": {"B": 1},
+        "B": {"C": 2, "E": -3},
+        "C": {"D": 3, "H": -5},
+        "D": {"A": 2, "G": 2},
+        "E": {"F": 2},
+        "F": {"G": 3},
+        "G": {"E": 1, "H": 2},
+        "H": {"E": 1},
+    }
+
+    start = "A"
+
+    route = bellman_ford(nwgraph, start, lambda vert: vert == "G")
 
     print(route)
 
