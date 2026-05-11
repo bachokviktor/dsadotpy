@@ -17,6 +17,22 @@ class TestSelectionSort:
         assert result == sorted_array
 
 
+class TestBubbleSort:
+    def test_integer_array(self, integer_array):
+        initial_array, sorted_array = integer_array
+
+        result = sort.bubble_sort(initial_array)
+
+        assert result == sorted_array
+
+    def test_string_array(self, string_array):
+        initial_array, sorted_array = string_array
+
+        result = sort.bubble_sort(initial_array)
+
+        assert result == sorted_array
+
+
 class TestMergeSort:
     def test_integer_array(self, integer_array):
         initial_array, sorted_array = integer_array

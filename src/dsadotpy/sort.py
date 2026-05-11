@@ -3,7 +3,7 @@ from dsadotpy.protocols import Comparable
 
 def selection_sort[T: Comparable](array: list[T]) -> list[T]:
     """
-    Sorts an array using selection sort.
+    Sorts an array using the selection sort algorithm.
 
     Args:
         array: The initial array.
@@ -11,13 +11,39 @@ def selection_sort[T: Comparable](array: list[T]) -> list[T]:
     Returns:
         The new sorted array.
     """
-    for i in range(len(array)):
+    arr_len = len(array)
+
+    for i in range(arr_len):
         smallest_index = i
-        for j in range(i+1, len(array)):
+        for j in range(i+1, arr_len):
             if array[j] < array[smallest_index]:
                 smallest_index = j
 
         array[i], array[smallest_index] = array[smallest_index], array[i]
+
+    return array
+
+
+def bubble_sort[T: Comparable](array: list[T]) -> list[T]:
+    """
+    Sorts an array using the bubble sort algorithm.
+
+    Args:
+        array: The initial array.
+
+    Returns:
+        The new sorted array.
+    """
+    arr_len = len(array)
+
+    for i in range(arr_len):
+        swapped = False
+        for j in range(arr_len-i-1):
+            if array[j] > array[j+1]:
+                array[j], array[j+1] = array[j+1], array[j]
+                swapped = True
+        if not swapped:
+            break
 
     return array
 
@@ -106,13 +132,13 @@ if __name__ == "__main__":
 
     print(new_arr_str)
 
-    print("\nQuicksort")
+    print("\nBubble sort")
 
     arr = [1, 6, 2, 9, 44, 11]
 
     print(arr)
 
-    new_arr = quicksort(arr)
+    new_arr = bubble_sort(arr)
 
     print(new_arr)
 
@@ -120,7 +146,7 @@ if __name__ == "__main__":
 
     print(arr_str)
 
-    new_arr_str = quicksort(arr_str)
+    new_arr_str = bubble_sort(arr_str)
 
     print(new_arr_str)
 
@@ -139,5 +165,23 @@ if __name__ == "__main__":
     print(arr_str)
 
     new_arr_str = merge_sort(arr_str)
+
+    print(new_arr_str)
+
+    print("\nQuicksort")
+
+    arr = [1, 6, 2, 9, 44, 11]
+
+    print(arr)
+
+    new_arr = quicksort(arr)
+
+    print(new_arr)
+
+    arr_str = ["n", "d", "z", "a", "w", "t"]
+
+    print(arr_str)
+
+    new_arr_str = quicksort(arr_str)
 
     print(new_arr_str)
