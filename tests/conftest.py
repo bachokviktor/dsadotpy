@@ -2,6 +2,22 @@ import pytest
 
 
 @pytest.fixture
+def integer_array():
+    initial_array = [5, 2, 3, 1, 4]
+    sorted_array = [1, 2, 3, 4, 5]
+
+    return (initial_array, sorted_array)
+
+
+@pytest.fixture
+def string_array():
+    initial_array = ["d", "t", "z", "w", "a"]
+    sorted_array = ["a", "d", "t", "w", "z"]
+
+    return (initial_array, sorted_array)
+
+
+@pytest.fixture
 def weighted_graph():
     return {
         "London": {

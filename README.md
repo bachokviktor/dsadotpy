@@ -24,6 +24,7 @@ index = binary_search(arr, val)
 Module: `dsadotpy.sort`
 
 - Selection Sort: O(n^2)
+- Merge Sort: O(n log n)
 - Quicksort: O(n log n)
 
 ### Searching Algorithms
