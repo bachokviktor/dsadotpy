@@ -52,10 +52,10 @@ Module: `dsadotpy.structures`
 
 ## Installation
 
-Remove the `dist` if already exists
+Clone the repository
 
 ``` bash
-rm -r dist
+git clone https://github.com/bachokviktor/dsadotpy.git && cd dsadotpy
 ```
 
 Create a virtual environment
@@ -74,6 +74,12 @@ Install dependencies
 
 ``` bash
 pip install -r requirements.txt
+```
+
+Remove the `dist` directory if already exists
+
+``` bash
+rm -r dist
 ```
 
 Build the module
